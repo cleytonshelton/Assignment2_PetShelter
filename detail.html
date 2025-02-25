@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
 
 
-    <style>
+   <style>
         .pet-card img {
             height: 240px; 
             object-fit: cover;
@@ -60,10 +60,13 @@
         	float: right;
 			padding: 10px;
         }
+        article{
+            margin-top: 125px;
+        }
     </style>
 </head>
 
-<body>
+<body onload="buildImage()">
 	<!--wrapper-->
 	<div class="wrapper">
 		<!--start header wrapper-->	
@@ -74,7 +77,7 @@
 					<nav class="navbar navbar-expand gap-3">
 						<div class="topbar-logo-header">
 							<div class="">
-								<img src="PetShelter/assets/images/logo-icon.png" id="logo" class="logo-icon" alt="logo icon">
+								<img src="PetShelter/assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
 							</div>
 							<div class="">
 								<h4 class="logo-text">Adopt A Pet!</h4>
@@ -578,28 +581,6 @@
 								   </ul>
 							   </li>
 							   <li class="nav-item dropend">
-								 <a class="dropdown-item dropdown-toggle dropdown-toggle-nocaret" href="javascript:;"><i class='bx bx-ghost'></i>Components</a>
-								 <ul class="dropdown-menu scroll-menu">
-									 <li><a class="dropdown-item" href="component-alerts.html"><i class='bx bx-radio-circle'></i>Alerts</a></li>
-									 <li><a class="dropdown-item" href="component-accordions.html"><i class='bx bx-radio-circle'></i>Accordions</a></li>
-									 <li><a class="dropdown-item" href="component-badges.html"><i class='bx bx-radio-circle'></i>Badges</a></li>
-									 <li><a class="dropdown-item" href="component-buttons.html"><i class='bx bx-radio-circle'></i>Buttons</a></li>
-									 <li><a class="dropdown-item" href="component-cards.html"><i class='bx bx-radio-circle'></i>Cards</a></li>
-									 <li><a class="dropdown-item" href="component-carousels.html"><i class='bx bx-radio-circle'></i>Carousels</a></li>
-									 <li><a class="dropdown-item" href="component-list-groups.html"><i class='bx bx-radio-circle'></i>List Groups</a></li>
-									 <li><a class="dropdown-item" href="component-media-object.html"><i class='bx bx-radio-circle'></i>Media Objects</a></li>
-									 <li><a class="dropdown-item" href="component-modals.html"><i class='bx bx-radio-circle'></i>Modals</a></li>
-									 <li><a class="dropdown-item" href="component-navs-tabs.html"><i class='bx bx-radio-circle'></i>Navs & Tabs</a></li>
-									 <li><a class="dropdown-item" href="component-navbar.html"><i class='bx bx-radio-circle'></i>Navbar</a></li>
-									 <li><a class="dropdown-item" href="component-paginations.html"><i class='bx bx-radio-circle'></i>Pagination</a></li>
-									 <li><a class="dropdown-item" href="component-popovers-tooltips.html"><i class='bx bx-radio-circle'></i>Popovers & Tooltips</a></li>
-									 <li><a class="dropdown-item" href="component-progress-bars.html"><i class='bx bx-radio-circle'></i>Progress</a></li>
-									 <li><a class="dropdown-item" href="component-spinners.html"><i class='bx bx-radio-circle'></i>Spinners</a></li>
-									 <li><a class="dropdown-item" href="component-notifications.html"><i class='bx bx-radio-circle'></i>Notifications</a></li>
-									 <li><a class="dropdown-item" href="component-avtars-chips.html"><i class='bx bx-radio-circle'></i>Avatrs & Chips</a></li>
-								   </ul>
-							   </li>
-							   <li class="nav-item dropend">
 								 <a class="dropdown-item dropdown-toggle dropdown-toggle-nocaret" href="javascript:;"><i class='bx bx-card' ></i>Content</a>
 								 <ul class="dropdown-menu submenu">
 									 <li><a class="dropdown-item" href="content-grid-system.html"><i class='bx bx-radio-circle'></i>Grid System</a></li>
@@ -656,194 +637,40 @@
 		 </div>
 		 <!--end navigation-->
 		   </div>
-		   <!--end header wrapper-->
-		<!--start page wrapper -->
-		<div class="container">
+
+<article>
+    <h2 style="text-align: center; border-bottom: 5px solid #004488"><i>About Me</i></h2>
+
+    <div class="container">
+        <div class="row align-items-start">
+            <div class="col">
+                <div class="img" id="content"></div>
+            </div>
+            <div class="col-lg-12 text-center">
+                <h4>Name: </h4>
+                <p id="name"></p>
+                <h4>Breed: </h4>
+                <p id="breed"></p>
+                <h4>Sex: </h4>
+                <p id="sex"></p>
+                <h4>Age: </h4>
+                <p id="age"></p>
+                <h4>A Little About Me:</h4>
+                <p id="about_Me"></p>
+            </div>
+        </div>
+    </div>
+</article>
+<script src="data.js"></script>
+<script> 
+let index=getQueryParam('index');
+			if(index===null) window.location.href='data.js.Animal_Data[index].name';
+			else document.getElementById('name').innerHTML= index;
 		
-		<h1 class="heading">Dogs for adoption</h1>
-		
-		<div id="cardContainer" class="box-container">
-		
-			<script src="data.js"></script>
-    <script>
-        window.onload = function() {
-            var cardContainer = document.getElementById("cardContainer");
-
-            for (var i = 0; i < Animal_Data.length; i++) {
-                var animal = Animal_Data[i];
-
-                var cardDiv = document.createElement("div");
-                cardDiv.className = "left card mb-3";
-                cardDiv.style = "width: 18rem;";
-
-                var imgDiv = document.createElement("div");
-                imgDiv.className = "col";
-                var Petimg = document.createElement("img");
-                Petimg.src = animal.image;
-                imgDiv.appendChild(Petimg);
-
-                var cardBody = document.createElement("div");
-                cardBody.className = "card-body";
-
-                var title = document.createElement("h5");
-                title.className = "card-title";
-                title.textContent = animal.name;
-
-                var breedHeader = document.createElement("h4");
-                breedHeader.textContent = "Breed:";
-                var breed = document.createElement("p");
-                breed.textContent = animal.breed;
-
-                var sexHeader = document.createElement("h4");
-                sexHeader.textContent = "Sex:";
-                var sex = document.createElement("p");
-                sex.textContent = animal.sex;
-
-                var ageHeader = document.createElement("h4");
-                ageHeader.textContent = "Age:";
-                var age = document.createElement("p");
-                age.textContent = animal.age;
-
-                var seeMoreLink = document.createElement("a");
-                seeMoreLink.href = "detail.html?index=" + i;
-                seeMoreLink.className = "btn btn-primary";
-                seeMoreLink.textContent = "See More";
-
-                cardBody.appendChild(title);
-                cardBody.appendChild(breedHeader);
-                cardBody.appendChild(breed);
-                cardBody.appendChild(sexHeader);
-                cardBody.appendChild(sex);
-                cardBody.appendChild(ageHeader);
-                cardBody.appendChild(age);
-                cardBody.appendChild(seeMoreLink);
-
-                cardDiv.appendChild(imgDiv);
-                cardDiv.appendChild(cardBody);
-                cardContainer.appendChild(cardDiv);
-            }
-        };
-    </script>
-		
-	</div>
-	<div id="loadmore">Load More</div>
-	<script>
-	
-	let loadbtn = document.querySelector('#loadmore');
-	let currentItem = 9;
-	
-		
-	loadbtn.onclick = () =>{
-		let box = [...document.querySelectorAll('.container .box-container .box')];
-		for (var i = currentItem; i < currentItem + 9; i++){
-			box[i].style.display = 'inline-block';
+		function getQueryParam(key){
+			let queryParams=new URLSearchParams(window.location.search);
+			return queryParams.has(key) ? queryParams.get(key) : null;
 		}
-		currentItem += 9;
-	
-	}
-	
-	</script>
-		
-		
-		
-		
-		<!--end page wrapper -->
-		<!--start overlay-->
-		<div class="overlay toggle-icon"></div>
-		<!--end overlay-->
-		<!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
-		<!--End Back To Top Button-->
-	</div>
-	
-	<!--end wrapper-->
-	<!--start switcher-->
-	<div class="switcher-wrapper">
-		<div class="switcher-btn"> <i class='bx bx-cog bx-spin'></i>
-		</div>
-		<div class="switcher-body">
-			<div class="d-flex align-items-center">
-				<h5 class="mb-0 text-uppercase">Theme Customizer</h5>
-				<button type="button" class="btn-close ms-auto close-switcher" aria-label="Close"></button>
-			</div>
-			<hr/>
-			<h6 class="mb-0">Theme Styles</h6>
-			<hr/>
-			<div class="d-flex align-items-center justify-content-between">
-				<div class="form-check">
-					<input class="form-check-input" type="radio" name="flexRadioDefault" id="lightmode" checked>
-					<label class="form-check-label" for="lightmode">Light</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="radio" name="flexRadioDefault" id="darkmode">
-					<label class="form-check-label" for="darkmode">Dark</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="radio" name="flexRadioDefault" id="semidark">
-					<label class="form-check-label" for="semidark">Semi Dark</label>
-				</div>
-			</div>
-			<hr/>
-			<div class="form-check">
-				<input class="form-check-input" type="radio" id="minimaltheme" name="flexRadioDefault">
-				<label class="form-check-label" for="minimaltheme">Minimal Theme</label>
-			</div>
-			<hr/>
-			<h6 class="mb-0">Header Colors</h6>
-			<hr/>
-			<div class="header-colors-indigators">
-				<div class="row row-cols-auto g-3">
-					<div class="col">
-						<div class="indigator headercolor1" id="headercolor1"></div>
-					</div>
-					<div class="col">
-						<div class="indigator headercolor2" id="headercolor2"></div>
-					</div>
-					<div class="col">
-						<div class="indigator headercolor3" id="headercolor3"></div>
-					</div>
-					<div class="col">
-						<div class="indigator headercolor4" id="headercolor4"></div>
-					</div>
-					<div class="col">
-						<div class="indigator headercolor5" id="headercolor5"></div>
-					</div>
-					<div class="col">
-						<div class="indigator headercolor6" id="headercolor6"></div>
-					</div>
-					<div class="col">
-						<div class="indigator headercolor7" id="headercolor7"></div>
-					</div>
-					<div class="col">
-						<div class="indigator headercolor8" id="headercolor8"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!--end switcher-->
-	<!-- Bootstrap JS -->
-	<script src="PetShelter/assets/js/bootstrap.bundle.min.js"></script>
-	<!--plugins-->
-	<script src="PetShelter/assets/js/jquery.min.js"></script>
-	<script src="PetShelter/assets/plugins/simplebar/js/simplebar.min.js"></script>
-	<script src="PetShelter/assets/plugins/metismenu/js/metisMenu.min.js"></script>
-	<script src="PetShelter/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
-	<script src="PetShelter/assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
-	<script src="PetShelter/assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js"></script>
-	<script src="PetShelter/assets/plugins/highcharts/js/highcharts.js"></script>
-	<script src="PetShelter/assets/plugins/highcharts/js/exporting.js"></script>
-	<script src="PetShelter/assets/plugins/highcharts/js/variable-pie.js"></script>
-	<script src="PetShelter/assets/plugins/highcharts/js/export-data.js"></script>
-	<script src="PetShelter/assets/plugins/highcharts/js/accessibility.js"></script>
-	<script src="PetShelter/assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
-	<script src="PetShelter/assets/js/index2.js"></script>
-	<!--app JS-->
-	<script src="PetShelter/assets/js/app.js"></script>
-	<script>
-		new PerfectScrollbar('.customers-list');
-		new PerfectScrollbar('.store-metrics');
-		new PerfectScrollbar('.product-list');
-	</script>
+</script>
 </body>
-
 </html>

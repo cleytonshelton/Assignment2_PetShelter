@@ -144,8 +144,8 @@ let Animal_Data = [
 ];
 var i = getQueryParam('index');
 
-var name = Animal_Data[i].name;
-document.getElementById("name").innerHTML = name;
+var petName = Animal_Data[i].petName;
+document.getElementById("name").innerHTML = petName;
 
 var breed = Animal_Data[i].breed;
 document.getElementById("breed").innerHTML = breed;

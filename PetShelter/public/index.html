@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Shelter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Pet Shelter</h1>
+
+    <form id="petForm">
+        <input type="text" id="name" placeholder="Pet Name" required>
+        <input type="text" id="breed" placeholder="Breed" required>
+        <input type="text" id="sex" placeholder="Sex" required>
+        <input type="text" id="age" placeholder="Age" required>
+        <textarea id="about" placeholder="About" required></textarea>
+        <input type="text" id="image" placeholder="Image URL" required>
+        <button type="submit">Add Pet</button>
+    </form>
+
+    <div class="card-container" id="petCards"></div>
+
+    <script>
+function loadPets() {
+    fetch('/api/jsonBlob')
+        .then(response => response.json())
+        .then(pets => {
+            const petCardsContainer = document.getElementById('petCards');
+            petCardsContainer.innerHTML = '';
+            pets.forEach(pet => {
+                const card = document.createElement('div');
+                card.classList.add('card');
+                card.innerHTML = `
+                    <img src="${pet.image}" alt="${pet.name}">
+                    <h2>${pet.name}</h2>
+                    <p><strong>Breed:</strong> ${pet.breed}</p>
+                    <p><strong>Sex:</strong> ${pet.sex}</p>
+                    <p><strong>Age:</strong> ${pet.age}</p>
+                    <p><strong>About:</strong> ${pet.about}</p>
+                    <button class="deleteBtn" data-id="${pet.id}">Delete Pet</button>
+                    <button onclick="viewDetails('${pet.id}')">View Details</button>
+                `;
+
+                card.querySelector('.deleteBtn').addEventListener('click', function() {
+                    const petId = pet.id;
+                    deletePet(petId);
+                });
+
+                petCardsContainer.appendChild(card);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching pet data:', error);
+        });
+}
+
+        function deletePet(petId) {
+            fetch(`/api/jsonBlob/${petId}`, {
+                method: 'DELETE',
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Pet deleted:', data);
+                loadPets();
+            })
+            .catch(error => {
+                console.error('Error deleting pet:', error);
+            });
+        }
+        function viewDetails(petId) {
+            fetch('/api/jsonBlob')
+                .then(response => response.json())
+                .then(pets => {
+                    const pet = pets.find(p => p.id === petId);
+                    if (pet) {
+                    alert(`Name: ${pet.name}\nBreed: ${pet.breed}\nAge: ${pet.age}\nAbout: ${pet.about}`);
+            }
+        });
+}
+
+
+document.getElementById('petForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const newPet = {
+        name: document.getElementById('name').value,
+        breed: document.getElementById('breed').value,
+        sex: document.getElementById('sex').value,
+        age: document.getElementById('age').value,
+        about: document.getElementById('about').value,
+        image: document.getElementById('image').value
+    };
+
+    fetch('/api/jsonBlob', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newPet)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data && data.message) {
+            console.log('Pet added:', data);
+            document.getElementById('petForm').reset();
+            loadPets();
+        } else {
+            throw new Error('Pet data is undefined or incorrect');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to add pet.');
+    });
+});
+
+
+        window.onload = loadPets;
+    </script>
+</body>
+</html>
